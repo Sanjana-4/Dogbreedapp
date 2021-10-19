@@ -1,0 +1,46 @@
+
+.image{
+    border-radius: 8px;
+    width:20%;
+    height:200px;
+    box-shadow: 7px 7px 20px rgb(17, 9, 9),
+                -7px -7px 20px rgb(17, 9, 9);
+    float: left;
+    margin:10px;
+    margin-top: 30px;
+    margin-right: 32px;
+    margin-left: 30px;
+    font-weight: 700;
+}
+
+.background{
+    background-color: rgb(103, 103, 104);
+    height: 100%;
+    color: white;
+}
+.l-image{
+    border-radius: 8px;
+    width:70%;
+    height:600px;
+    box-shadow: 7px 7px 20px rgb(17, 9, 9),
+                -7px -7px 20px rgb(17, 9, 9);
+   
+    margin:10px;
+    margin-top: 30px;
+    margin-bottom: 85px;
+    
+}
+.button{
+    width:250px;
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    padding: 10px 22px;
+    align-items: center;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 12px;
+  
+}
