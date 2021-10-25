@@ -1,60 +1,40 @@
-import axios from 'axios'
+import axios from "axios";
 
 import {
     GET_LIST_REQUEST,
     GET_LIST_SUCCESS,
-    GET_LIST_FAILURE
+    GET_LIST_FAILURE,
+    FETCHING_DOGS,
+    DOG_FETCH_SUCCESS,
+    DOG_FETCH_ERROR
 } from './Constants'
-export const fetchListRequest = () => {
-    return{
-        type:GET_LIST_REQUEST
-    }
-}
-export const fetchListSuccess = data => {
-    return{
-        type:GET_LIST_SUCCESS,
-        payload: data
-    }
-}
-export const fetchListFailure = error => {
-    return{
-        type:GET_LIST_FAILURE,
-        payload: error
-    }
-}
 
-export const fetchListData = () =>{
+export const fetchDogs = () => {
+  const promise = axios.get(`https://dog.ceo/api/breed/hound/basset/images`);
+  return dispatch => {
+    dispatch({ type: FETCHING_DOGS }); // first state of 'fetching' is dispatched
+    promise
+      .then(response => {
+        dispatch({ type: DOG_FETCH_SUCCESS, payload: response.data.message }); // 2nd state of success is dispatched IF the promise resolves
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch({ type: DOG_FETCH_ERROR }); // our other 2nd state of 'rejected' will be dispatched here.
+      });
+  };
+};
 
-   
-    return(dispatch)=>{
-        dispatch(fetchListRequest)
-        axios.get('https://dog.ceo/api/breed/hound/list')
-          .then(response => {
-              const data = response.data
-              
-              dispatch(fetchListSuccess(data.message))
-          })
-          .catch(error =>{
-              const errorMsg = error.message
-              dispatch(fetchListFailure(errorMsg))
-          })
-    }
-}
-
-export const fetchListImage = () =>{
-
-   
-    return(dispatch)=>{
-        dispatch(fetchListRequest)
-        axios.get('https://dog.ceo/api/breed/hound/basset/images')
-          .then(response => {
-              const data = response.data
-              
-              dispatch(fetchListSuccess(data.message))
-          })
-          .catch(error =>{
-              const errorMsg = error.message
-              dispatch(fetchListFailure(errorMsg))
-          })
-    }
-}
+export const fetchListData = () => {
+    const promise = axios.get(`https://dog.ceo/api/breed/hound/list`);
+    return dispatch => {
+      dispatch({ type: GET_LIST_REQUEST }); // first state of 'fetching' is dispatched
+      promise
+        .then(response => {
+          dispatch({ type: GET_LIST_SUCCESS, payload: response.data.message }); // 2nd state of success is dispatched IF the promise resolves
+        })
+        .catch(err => {
+          console.log(err);
+          dispatch({ type: GET_LIST_FAILURE }); // our other 2nd state of 'rejected' will be dispatched here.
+        });
+    };
+  };
