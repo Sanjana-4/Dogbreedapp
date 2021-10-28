@@ -15,8 +15,10 @@ class App extends React.Component {
     <Router>
       <Switch>
       <Route path = '/' exact component = {BasePage}/>
-        <Route path = '/DogList' exact component = {DogListContainer}/>
-        <Route path = '/large' component = {ViewLarge}/>    
+        <Route path = '/DogList/:breed' exact component = {DogListContainer}/>
+        <Route path = '/DogList/:breed/:sub' exact component = {DogListContainer}/>
+        <Route path = '/large/:i/:breed/:sub' component = {ViewLarge}/>    
+        <Route path = '/large/:i/:breed' component = {ViewLarge}/>  
       </Switch>
     </Router>
    

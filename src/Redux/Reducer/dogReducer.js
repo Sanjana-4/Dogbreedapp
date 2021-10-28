@@ -19,6 +19,8 @@ export const dogReducer = (state = initialState, action) => {
           fetchingDogs: false, // we're also no longer fetching here so set the boolean to false
           error: "Error fetching Dogs" // now we're getting an error back, set the error as we'd see fit
         });
+      case "CLEAR_DOGS":
+        return initialState;
       default:
         return state;
     }

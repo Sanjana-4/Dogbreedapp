@@ -1,17 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchDogs } from "../Redux/Action";
+import { fetchDogs, clearlist } from "../Redux/Action";
 import './Dogfinder.css'
 import {Carousel} from 'react-bootstrap'
 import {FaArrowAltCircleRight, FaArrowAltCircleLeft} from 'react-icons/fa'
 class ViewLarge extends Component {
   componentDidMount() {
-    this.props.fetchDogs();
+    //this.props.fetchDogs();
   }
   handleChange = e => {
+    this.props.clearlist();
+    var path = ''
+    var breedname = this.props.match.params.breed
+    if(this.props.match.params.sub){
+      var sub = this.props.match.params.sub
+      path = breedname + '/' + sub
+    }
+    else{
+      path = breedname
+    }
     e.preventDefault();
     this.props.history.push({
-        pathname: '/DogList',
+        pathname: '/DogList/' + path,
         
       })
 }
@@ -21,9 +31,9 @@ class ViewLarge extends Component {
         
           <center>
           <button onClick={(e)=>{this.handleChange(e)}}>BACK</button>
-          <Carousel>
-            {this.props.dogs.map((dog) => {
-              return <Carousel.Item><img className="l-image" key={dog} src={dog} alt=""/>;</Carousel.Item>
+          <Carousel activeIndex={Number(this.props.match.params.i)}>
+            {this.props.dogs.map((dog, i) => {
+              return <Carousel.Item key={i}><img className="l-image" key={i} src={dog} alt=""/>;</Carousel.Item>
             })}
             </Carousel>
           </center>
@@ -42,4 +52,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchDogs })(ViewLarge);
+export default connect(mapStateToProps, { fetchDogs, clearlist })(ViewLarge);

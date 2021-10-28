@@ -9,8 +9,21 @@ import {
     DOG_FETCH_ERROR
 } from './Constants'
 
-export const fetchDogs = (breedName) => {
-  const promise = axios.get(`https://dog.ceo/api/breed/hound/${breedName}/images`);
+
+export const clearlist = () => {
+  return dispatch => {
+    //console.log("i am here")
+    dispatch({ type: FETCHING_DOGS });
+    dispatch({ type: "CLEAR_DOGS" });
+    //console.log("hello")
+  }
+}
+export const fetchDogs = (mode=false, breedName, sub='no') => {
+  var url = `https://dog.ceo/api/breed/${breedName}/images`;
+  if(mode){
+    url = `https://dog.ceo/api/breed/${breedName}/${sub}/images`
+  }
+  const promise = axios.get(url);
   return dispatch => {
     dispatch({ type: FETCHING_DOGS }); // first state of 'fetching' is dispatched
     promise
@@ -38,13 +51,17 @@ export const fetchListData = (breedName) => {
         });
     };
   };
+  
   export const fetchListAll = () => {
-    const promise = axios.get(`'https://dog.ceo/api/breeds/list/all'`);
+    const promise = axios.get('https://dog.ceo/api/breeds/list/all');
     return dispatch => {
       dispatch({ type: GET_LIST_REQUEST }); // first state of 'fetching' is dispatched
       promise
         .then(response => {
-          dispatch({ type: "GET_ALL", payload: response.data.message }); // 2nd state of success is dispatched IF the promise resolves
+          // var temp = []
+          // temp.push(response.data.message)
+          dispatch({ type: "GET_ALL", payload: Object.keys(response.data.message) }); // 2nd state of success is dispatched IF the promise resolves
+          dispatch({ type: "SET_BREED_LIST", payload: response.data.message });
         })
         .catch(err => {
           console.log(err);
