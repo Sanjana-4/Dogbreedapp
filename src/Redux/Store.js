@@ -1,10 +1,14 @@
-import { createStore, applyMiddleware} from 'redux'
+import { createStore, applyMiddleware,combineReducers} from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import ListReducer from './Reducer'
+import dogReducer from './Reducer/dogReducer'
+import ListReducer from './Reducer/ListReducer'
 
 const store = createStore(
-    ListReducer,
+    combineReducers({
+        dogs:dogReducer,
+        list:ListReducer
+    }),
     composeWithDevTools(applyMiddleware(thunk))
 )
 

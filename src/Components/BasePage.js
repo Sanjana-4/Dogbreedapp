@@ -1,57 +1,59 @@
-import React,{useEffect}from 'react'
-import {connect} from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import {fetchListData} from '../Redux/Action'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchListData, fetchListAll } from "../Redux/Action";
 import './Dogfinder.css'
-import {Image} from 'react-bootstrap'
+import './BasePage.css'
 
-function DogListContainer({DogList, fetchListData}) {
-    useEffect(() =>{
-        fetchListData()
-    }, [])
-  
-    const history = useHistory();
-    function handleHistory () {
-         history.push({
-          pathname: '/DogList',
-        });
-     }
-   
+class DogListContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {value: 'select'};
+    
+        this.onSelect = this.onSelect.bind(this);
+      }
+  componentDidMount() {
+    this.props.fetchListAll();
+    //this.props.fetchListData(this.state.value);
+  }
+onSelect(event) {
+    this.setState({value: event.target.value});
+  }
+ handleChange = e => {
+    e.preventDefault();
+    this.props.history.push({
+        pathname: '/DogList',
+        
+      })
+}
+  render() {
     return (
-        <div>
-        <div>
-        <br/>
-        <center> <h1>DOG BREED APP</h1> 
+      <div className="dog">
+      <center>
+          <h2>DOG BREED APP 🐕 </h2>
+     
+          <select value={this.state.value} className="select" onChange={this.onSelect}>
+              <option hidden value="select">Select breed</option>
+            {this.props.allist.map((dog) => {
+              return <option key={dog}>{dog}</option>;
+            })}
+          </select>
+          <br/>
+          <button className="button" onClick={(e)=>{this.handleChange(e)}}>GET IMAGES</button>
+        
         </center>
-        </div>
-        <br/>
-        <div>
-        <center>
-       <select>
-       <option>{DogList[0]}</option>
-       <option>{DogList[1]}</option>
-       <option>{DogList[2]}</option>
-       <option>{DogList[3]}</option>
-       <option>{DogList[4]}</option>
-       <option>{DogList[5]}</option>
-       <option>{DogList[6]}</option>
-       </select>
-       <br/>
-       <br/>
-       <button className="button" onClick={(e)=>{handleHistory(e)}}>Get Images</button>
-       </center>
-        </div>
-        </div>
-    )
+      </div>
+    );
+  }
 }
+
 const mapStateToProps = state => {
-    return {
-        DogList: state.data
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return{
-        fetchListData:() => dispatch(fetchListData())
-    }
-}
-export default connect (mapStateToProps,mapDispatchToProps)(DogListContainer)
+  return {
+    
+    dogsList: state.list.dogsList, 
+    error: state.list.error, 
+    fetchingDogsList: state.list.fetchingDogsList,
+    allist: state.list.allist
+  };
+};
+
+export default connect(mapStateToProps, { fetchListData, fetchListAll })(DogListContainer);
