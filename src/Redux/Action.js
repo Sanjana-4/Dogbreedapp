@@ -12,10 +12,10 @@ import {
 
 export const clearlist = () => {
   return dispatch => {
-    console.log("i am here")
+    //console.log("i am here")
     dispatch({ type: FETCHING_DOGS });
     dispatch({ type: "CLEAR_DOGS" });
-    console.log("hello")
+    //console.log("hello")
   }
 }
 export const fetchDogs = (mode=false, breedName, sub='no') => {
