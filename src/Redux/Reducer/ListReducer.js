@@ -4,7 +4,7 @@ import {
     GET_LIST_FAILURE
 } from '../Constants'
 
-const initialState = { dogsList: [], allist: [], fetchingDogsList: false, error: "" };
+const initialState = { dogsList: [], allist: [], breedList: {},fetchingDogsList: false, error: "" };
 
 export const ListReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -20,6 +20,16 @@ export const ListReducer = (state = initialState, action) => {
             allist: [...state.allist, ...action.payload], // if our promise was successfull, build out the dogs array.
             fetchingDogsList: false
         });
+        case "SET_BREED_LIST":
+          /* return Object.assign({}, state, {
+            breedList: [...state.breedList, ...action.payload], // if our promise was successfull, build out the dogs array.
+            fetchingDogsList: false
+        }); */
+        return {
+          ...state,
+          breedList: action.payload
+        }
+        
     case GET_LIST_FAILURE:
       return Object.assign({}, state, {
         fetchingDogsList: false, // we're also no longer fetching here so set the boolean to false
