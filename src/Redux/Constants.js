@@ -1,0 +1,8 @@
+//dog list
+export const GET_LIST_REQUEST = 'GET_LIST_REQUEST'
+export const GET_LIST_SUCCESS = 'GET_LIST_SUCCESS'
+export const GET_LIST_FAILURE = 'GET_LIST_FAILURE'
+//dog image
+export const FETCHING_DOGS = "FETCHING_DOGS";
+export const DOG_FETCH_SUCCESS = "DOG_FETCH_SUCCESS";
+export const DOG_FETCH_ERROR = "DOG_FETCH_ERROR";
