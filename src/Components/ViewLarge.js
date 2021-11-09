@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { fetchDogs, clearlist } from "../Redux/Action";
 import './Dogfinder.css'
 import {Carousel} from 'react-bootstrap'
-import {FaArrowAltCircleRight, FaArrowAltCircleLeft} from 'react-icons/fa'
 class ViewLarge extends Component {
   componentDidMount() {
     //this.props.fetchDogs();
@@ -30,8 +29,8 @@ class ViewLarge extends Component {
       <div className="background">
         
           <center>
-          <button onClick={(e)=>{this.handleChange(e)}}>BACK</button>
-          <Carousel activeIndex={Number(this.props.match.params.i)}>
+          <button className="button1" onClick={(e)=>{this.handleChange(e)}}>BACK</button>
+          <Carousel >
             {this.props.dogs.map((dog, i) => {
               return <Carousel.Item key={i}><img className="l-image" key={i} src={dog} alt=""/>;</Carousel.Item>
             })}

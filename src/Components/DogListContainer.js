@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchDogs, clearlist } from "../Redux/Action";
+import {   BeatLoader } from 'react-spinners'
 import './Dogfinder.css'
 
 class DogListContainer extends Component {
@@ -43,9 +44,9 @@ viewLarge(e, i) {
   render() {
     return (
       <div>
-      <button onClick={(e)=>{this.handleChange(e)}}>BACK</button>
+  <center> <button className="button1" onClick={(e)=>{this.handleChange(e)}}>BACK</button> </center>
         {this.props.fetchingDogs ? (
-          <h3>LOADING...</h3>
+   <center >  <BeatLoader loading/></center>
         ) : (
           <div >
             {this.props.dogs.map((dog, i) => {
@@ -61,10 +62,9 @@ viewLarge(e, i) {
 
 const mapStateToProps = state => {
   return {
-    // our state machine is working for us based on fetching, success, and error. lets make sure our component knows about the state machine
-    dogs: state.dogs.dogs, // dogs for when we have the data!
-    error: state.dogs.error, // error for when we mispell something!
-    fetchingDogs: state.dogs.fetchingDogs // pending state, the fetching spinner or loading message etc. for when we're fetching!
+    dogs: state.dogs.dogs, 
+    error: state.dogs.error, 
+    fetchingDogs: state.dogs.fetchingDogs 
   };
 };
 

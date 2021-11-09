@@ -15,7 +15,6 @@ class DogListContainer extends Component {
   componentDidMount() {
     this.props.fetchListAll();
     this.props.clearlist();
-    //this.props.fetchListData(this.state.value);
   }
 
 async onSelect(event) {
@@ -63,7 +62,7 @@ async onSelect(event) {
           <br/>
           {this.state.subBreads.length > 0 && (
             <><select value={this.state.SelectedSubBreed} className="select" onChange={this.onSelectSubBreed}>
-              <option hidden value="select">Select breed</option>
+              <option hidden value="select">Select SubBreed</option>
               {this.state.subBreads.map((dog, i) => {
                 return <option key={i}>{dog}</option>;
               })}

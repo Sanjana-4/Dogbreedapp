@@ -12,10 +12,8 @@ import {
 
 export const clearlist = () => {
   return dispatch => {
-    //console.log("i am here")
     dispatch({ type: FETCHING_DOGS });
     dispatch({ type: "CLEAR_DOGS" });
-    //console.log("hello")
   }
 }
 export const fetchDogs = (mode=false, breedName, sub='no') => {
@@ -25,14 +23,14 @@ export const fetchDogs = (mode=false, breedName, sub='no') => {
   }
   const promise = axios.get(url);
   return dispatch => {
-    dispatch({ type: FETCHING_DOGS }); // first state of 'fetching' is dispatched
+    dispatch({ type: FETCHING_DOGS }); 
     promise
       .then(response => {
-        dispatch({ type: DOG_FETCH_SUCCESS, payload: response.data.message }); // 2nd state of success is dispatched IF the promise resolves
+        dispatch({ type: DOG_FETCH_SUCCESS, payload: response.data.message }); 
       })
       .catch(err => {
         console.log(err);
-        dispatch({ type: DOG_FETCH_ERROR }); // our other 2nd state of 'rejected' will be dispatched here.
+        dispatch({ type: DOG_FETCH_ERROR }); 
       });
   };
 };
@@ -40,14 +38,14 @@ export const fetchDogs = (mode=false, breedName, sub='no') => {
 export const fetchListData = (breedName) => {
     const promise = axios.get(`https://dog.ceo/api/breed/${breedName}/list`);
     return dispatch => {
-      dispatch({ type: GET_LIST_REQUEST }); // first state of 'fetching' is dispatched
+      dispatch({ type: GET_LIST_REQUEST }); 
       promise
         .then(response => {
-          dispatch({ type: GET_LIST_SUCCESS, payload: response.data.message }); // 2nd state of success is dispatched IF the promise resolves
+          dispatch({ type: GET_LIST_SUCCESS, payload: response.data.message }); 
         })
         .catch(err => {
           console.log(err);
-          dispatch({ type: GET_LIST_FAILURE }); // our other 2nd state of 'rejected' will be dispatched here.
+          dispatch({ type: GET_LIST_FAILURE }); 
         });
     };
   };
@@ -55,17 +53,15 @@ export const fetchListData = (breedName) => {
   export const fetchListAll = () => {
     const promise = axios.get('https://dog.ceo/api/breeds/list/all');
     return dispatch => {
-      dispatch({ type: GET_LIST_REQUEST }); // first state of 'fetching' is dispatched
+      dispatch({ type: GET_LIST_REQUEST }); 
       promise
         .then(response => {
-          // var temp = []
-          // temp.push(response.data.message)
-          dispatch({ type: "GET_ALL", payload: Object.keys(response.data.message) }); // 2nd state of success is dispatched IF the promise resolves
+          dispatch({ type: "GET_ALL", payload: Object.keys(response.data.message) }); 
           dispatch({ type: "SET_BREED_LIST", payload: response.data.message });
         })
         .catch(err => {
           console.log(err);
-          dispatch({ type: GET_LIST_FAILURE }); // our other 2nd state of 'rejected' will be dispatched here.
+          dispatch({ type: GET_LIST_FAILURE }); 
         });
     };
   };
